@@ -10,34 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Locate Gradle project
-        id: loc
-        run: |
-          f=$(find . -name settings.gradle | head -1)
-          if [ -z "$f" ]; then
-            echo "No settings.gradle found. Repo contents:"
-            find . -not -path "./.git/*" | head -50
-            exit 1
-          fi
-          echo "Found: $f"
-          echo "dir=$(dirname "$f")" >> "$GITHUB_OUTPUT"
-
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
-
       - name: Build debug APK
-        working-directory: ${{ steps.loc.outputs.dir }}
         run: gradle assembleDebug
-
       - uses: actions/upload-artifact@v4
         with:
           name: Win11QuestDesktop-debug-apk
-          path: ${{ steps.loc.outputs.dir }}/app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
