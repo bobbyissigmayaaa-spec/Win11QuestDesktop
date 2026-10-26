@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Win11 Quest Desktop</title>
+<style>
+:root{--glass:rgba(20,31,52,.84);--line:rgba(255,255,255,.18);--text:#f7f9ff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Segoe UI",Arial,sans-serif;color:var(--text);user-select:none}
+body{background:#07162f}
+.desktop{position:relative;width:100vw;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 72% 42%,#36b7ef 0%,#1778c7 18%,transparent 38%),radial-gradient(ellipse at 62% 52%,#174aa6 0%,#101e52 38%,transparent 62%),linear-gradient(135deg,#06132d,#102d67 58%,#07142c)}
+.desktop:before{content:"";position:absolute;width:52vw;height:76vh;left:35%;top:8%;border-radius:48% 52% 48% 52%;background:linear-gradient(125deg,rgba(0,202,255,.85),rgba(29,71,211,.18) 52%,rgba(5,15,50,.3));filter:blur(3px);transform:rotate(-22deg);box-shadow:0 0 90px #168bff}
+.desktop:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.08) 47%,transparent 58%);pointer-events:none}
+.icons{position:absolute;z-index:1;top:18px;left:18px;display:grid;grid-auto-flow:row;gap:14px}
+.icon{width:84px;text-align:center;padding:7px 3px;border:1px solid transparent;border-radius:7px;font-size:12px;text-shadow:0 1px 3px #000;cursor:pointer}
+.icon:active,.icon:hover{background:#ffffff22;border-color:#ffffff30}
+.glyph{font-size:31px;display:block;margin-bottom:5px;text-shadow:none}
+.taskbar{position:absolute;z-index:50;bottom:0;left:0;right:0;height:56px;background:rgba(18,25,41,.78);backdrop-filter:blur(24px);border-top:1px solid #ffffff24;display:flex;align-items:center;justify-content:center;gap:7px}
+.taskbtn{height:42px;min-width:42px;border:0;border-radius:8px;background:transparent;color:white;font-size:21px;cursor:pointer;padding:0 10px}
+.taskbtn:hover,.taskbtn.active{background:#ffffff20}.search{font-size:13px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:20px;background:#ffffff17;height:36px;min-width:145px}
+.tray{position:absolute;right:15px;display:flex;align-items:center;gap:13px;font-size:12px;line-height:1.35;text-align:right}
+.start{display:none;position:absolute;z-index:60;bottom:64px;left:50%;transform:translateX(-50%);width:min(570px,94vw);height:min(620px,78vh);border:1px solid var(--line);border-radius:16px;background:rgba(24,34,54,.94);backdrop-filter:blur(28px);box-shadow:0 25px 80px #0008;padding:22px}
+.start.show{display:block}.starttop{display:flex;justify-content:space-between;font-size:17px;font-weight:600;margin-bottom:22px}.pinned{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.pin{text-align:center;padding:12px 3px;border-radius:8px;cursor:pointer;font-size:12px}.pin:hover{background:#ffffff15}.pin span{display:block;font-size:27px;margin-bottom:8px}.recommended{margin-top:24px;font-size:13px;color:#d5e1f7}.recrow{display:flex;gap:12px;align-items:center;padding:12px 3px;border-radius:8px}.recrow span{font-size:23px}
+.window{display:none;position:absolute;z-index:10;left:15%;top:10%;width:min(760px,80vw);height:min(500px,72vh);min-width:300px;min-height:230px;background:rgba(247,249,253,.97);color:#172033;border:1px solid #ffffffbb;border-radius:11px;overflow:hidden;box-shadow:0 20px 65px #0007;resize:both}
+.window.show{display:flex;flex-direction:column}.titlebar{height:43px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding-left:14px;background:#f7f8fb;cursor:move;border-bottom:1px solid #e0e5ed;font-size:13px}.wincontrols{display:flex;height:100%}.wincontrols button{border:0;background:transparent;width:43px;font-size:15px;color:#182033}.wincontrols button:last-child:hover{background:#e81123;color:white}.winbody{flex:1;overflow:auto;padding:18px}.explorerbar{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid #e0e5ed;font-size:13px}.explorercontent{display:grid;grid-template-columns:145px 1fr;height:100%}.side{background:#f2f5f9;padding:12px;font-size:13px}.side div{padding:9px 4px}.files{padding:18px;display:flex;gap:20px;flex-wrap:wrap}.file{width:85px;text-align:center;font-size:12px}.file b{display:block;font-size:31px;margin-bottom:7px;font-weight:400}.note{width:100%;height:100%;border:0;resize:none;outline:0;font:16px/1.5 "Segoe UI",Arial;color:#172033}.calc{max-width:320px;margin:auto}.calcdisplay{width:100%;height:65px;text-align:right;font-size:30px;padding:10px;border:0;background:#edf2f8;margin-bottom:8px}.calcgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.calcgrid button{height:52px;border:0;border-radius:5px;background:#e6ebf2;font-size:18px;color:#172033}.calcgrid button:active{background:#c9d8ee}.browser{height:100%;display:flex;flex-direction:column;gap:12px}.browser input{padding:12px;border:1px solid #ccd4e1;border-radius:8px;width:100%;font-size:15px}.browser button{padding:10px 16px;border:0;border-radius:7px;background:#176de0;color:white}.toast{position:absolute;z-index:100;bottom:70px;left:50%;transform:translateX(-50%);padding:10px 16px;background:#172033dd;border:1px solid #ffffff33;border-radius:9px;font-size:13px;display:none}
+@media(max-width:600px){.icons{left:5px;top:5px;gap:4px}.icon{width:65px;font-size:10px}.glyph{font-size:25px}.taskbar{height:50px}.search{min-width:40px;width:40px;overflow:hidden}.tray{right:7px;gap:5px}.window{left:4%;width:92vw;height:70vh;top:8%}}
+</style>
+</head>
+<body>
+<div class="desktop" id="desktop">
+  <div class="icons">
+    <div class="icon" data-app="explorer"><span class="glyph">📁</span>File Explorer</div>
+    <div class="icon" data-app="browser"><span class="glyph">🌐</span>Browser</div>
+    <div class="icon" data-app="notes"><span class="glyph">📝</span>Notepad</div>
+    <div class="icon" data-app="calculator"><span class="glyph">🧮</span>Calculator</div>
+    <div class="icon" data-app="settings"><span class="glyph">⚙️</span>Settings</div>
+  </div>
+  <div class="window" id="win-explorer">
+    <div class="titlebar"><span>📁 &nbsp; File Explorer</span><div class="wincontrols"><button data-min>—</button><button data-max>□</button><button data-close>×</button></div></div>
+    <div class="explorerbar">← &nbsp; → &nbsp; ↑ &nbsp; | &nbsp; 🖥️ This PC &nbsp; › &nbsp; Home</div>
+    <div class="explorercontent"><div class="side"><div>🏠 Home</div><div>🖥️ This PC</div><div>📄 Documents</div><div>⬇ Downloads</div><div>🖼 Pictures</div><div>🎵 Music</div></div><div class="files"><div class="file"><b>📁</b>Documents</div><div class="file"><b>📁</b>Downloads</div><div class="file"><b>📁</b>Pictures</div><div class="file"><b>📁</b>Music</div><div class="file"><b>💽</b>Local Disk (C:)</div><div class="file"><b>📱</b>Quest Storage</div></div></div>
+  </div>
+  <div class="window" id="win-notes" style="left:25%;top:18%;width:560px;height:390px">
+    <div class="titlebar"><span>📝 &nbsp; Notepad</span><div class="wincontrols"><button data-min>—</button><button data-max>□</button><button data-close>×</button></div></div>
+    <div class="winbody" style="padding:0"><textarea class="note" id="note" placeholder="Start typing..."></textarea></div>
+  </div>
+  <div class="window" id="win-calculator" style="left:35%;top:12%;width:330px;height:470px">
+    <div class="titlebar"><span>🧮 &nbsp; Calculator</span><div class="wincontrols"><button data-min>—</button><button data-max>□</button><button data-close>×</button></div></div>
+    <div class="winbody"><div class="calc"><input class="calcdisplay" id="calcdisplay" value="0" readonly><div class="calcgrid" id="calcgrid"></div></div></div>
+  </div>
+  <div class="window" id="win-browser" style="left:20%;top:12%;width:700px;height:470px">
+    <div class="titlebar"><span>🌐 &nbsp; Browser</span><div class="wincontrols"><button data-min>—</button><button data-max>□</button><button data-close>×</button></div></div>
+    <div class="winbody"><div class="browser"><h2 style="margin:4px 0">Web browser</h2><p>Open a website in your device's browser.</p><input id="url" value="https://www.google.com" aria-label="Website address"><button id="go">Open website ↗</button><small>External websites open outside this desktop prototype.</small></div></div>
+  </div>
+  <div class="window" id="win-settings" style="left:27%;top:14%;width:500px;height:390px">
+    <div class="titlebar"><span>⚙️ &nbsp; Settings</span><div class="wincontrols"><button data-min>—</button><button data-max>□</button><button data-close>×</button></div></div>
+    <div class="winbody"><h2>Settings</h2><p>Personalize your desktop</p><label><input type="checkbox" id="lightmode"> Light desktop mode</label><hr><p>Display: adaptive to app window</p><p>System: Win11 Quest Desktop prototype</p><p>About: This is a simulated desktop, not Windows.</p></div>
+  </div>
+  <div class="start" id="start">
+    <div class="starttop"><span>📌 Pinned</span><span>All apps ›</span></div>
+    <div class="pinned">
+      <div class="pin" data-app="explorer"><span>📁</span>File Explorer</div><div class="pin" data-app="browser"><span>🌐</span>Browser</div><div class="pin" data-app="notes"><span>📝</span>Notepad</div><div class="pin" data-app="calculator"><span>🧮</span>Calculator</div><div class="pin" data-app="settings"><span>⚙️</span>Settings</div><div class="pin" data-app="browser"><span>🛍️</span>Store</div><div class="pin" data-app="notes"><span>📷</span>Photos</div><div class="pin" data-app="explorer"><span>🎮</span>Games</div>
+    </div>
+    <div class="recommended">Recommended</div><div class="recrow"><span>📄</span><div>Getting started<br><small>Recently opened</small></div></div><div class="recrow"><span>📝</span><div>Notes<br><small>Available on this device</small></div></div>
+  </div>
+  <div class="taskbar">
+    <button class="taskbtn" id="startbtn" title="Start">⊞</button><div class="search" id="searchbtn">🔎 <span>Search</span></div>
+    <button class="taskbtn" data-app="explorer" title="File Explorer">📁</button><button class="taskbtn" data-app="browser" title="Browser">🌐</button><button class="taskbtn" data-app="notes" title="Notepad">📝</button><button class="taskbtn" data-app="calculator" title="Calculator">🧮</button>
+    <div class="tray"><span>⌃　◉　🔊</span><span id="clock">4:20 PM<br>10/26/2026</span></div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+<script>
+const start=document.getElementById('start');let z=20;
+function openApp(name){const w=document.getElementById('win-'+name);if(w){w.classList.add('show');w.style.zIndex=++z;start.classList.remove('show');if(name==='notes')document.getElementById('note').value=localStorage.getItem('questNotes')||'';}else if(name==='settings'){document.getElementById('win-settings').classList.add('show');} }
+document.querySelectorAll('[data-app]').forEach(el=>el.addEventListener('click',()=>openApp(el.dataset.app)));
+document.getElementById('startbtn').onclick=()=>start.classList.toggle('show');
+document.getElementById('searchbtn').onclick=()=>{start.classList.add('show');toast('Choose an app from Start');};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('.window').classList.remove('show'));
+document.querySelectorAll('[data-min]').forEach(b=>b.onclick=()=>b.closest('.window').classList.remove('show'));
+document.querySelectorAll('[data-max]').forEach(b=>b.onclick=()=>{let w=b.closest('.window');if(w.dataset.maxed==='1'){w.style.left=w.dataset.l;w.style.top=w.dataset.t;w.style.width=w.dataset.w;w.style.height=w.dataset.h;w.dataset.maxed='0';}else{Object.assign(w.dataset,{l:w.style.left||'15%',t:w.style.top||'10%',w:w.style.width||'min(760px, 80vw)',h:w.style.height||'min(500px, 72vh)'});w.style.left='1%';w.style.top='1%';w.style.width='98%';w.style.height='calc(98% - 60px)';w.dataset.maxed='1';}w.style.zIndex=++z;});
+document.querySelectorAll('.window').forEach(w=>{const bar=w.querySelector('.titlebar');let down=false,dx=0,dy=0;bar.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;down=true;dx=e.clientX-w.offsetLeft;dy=e.clientY-w.offsetTop;w.style.zIndex=++z;bar.setPointerCapture(e.pointerId)});bar.addEventListener('pointermove',e=>{if(!down)return;w.style.left=Math.max(0,Math.min(innerWidth-w.offsetWidth,e.clientX-dx))+'px';w.style.top=Math.max(0,Math.min(innerHeight-w.offsetHeight-56,e.clientY-dy))+'px'});bar.addEventListener('pointerup',()=>down=false);w.addEventListener('pointerdown',()=>w.style.zIndex=++z);});
+const note=document.getElementById('note');note.value=localStorage.getItem('questNotes')||'';note.addEventListener('input',()=>localStorage.setItem('questNotes',note.value));
+let calc='0';const grid=document.getElementById('calcgrid'),disp=document.getElementById('calcdisplay');
+['C','±','%','÷','7','8','9','×','4','5','6','−','1','2','3','+','0','.','=',''].filter(Boolean).forEach(k=>{let b=document.createElement('button');b.textContent=k;b.onclick=()=>{if(k==='C')calc='0';else if(k==='='){try{let safe=calc.replaceAll('×','*').replaceAll('÷','/').replaceAll('−','-');if(/^[0-9+*/().%\s-]+$/.test(safe))calc=String(Function('"use strict";return ('+safe+')')());}catch{calc='Error'}}else if(k==='±')calc=String(-Number(calc));else if(calc==='0'&&/[0-9.]/.test(k))calc=k;else calc+=({'×':'*','÷':'/','−':'-'}[k]||k);disp.value=calc;};grid.appendChild(b)});
+document.getElementById('go').onclick=()=>{let u=document.getElementById('url').value.trim();if(!/^https?:\/\//i.test(u))u='https://'+u;window.location.href=u;};
+document.getElementById('lightmode').onchange=e=>{document.querySelector('.desktop').style.filter=e.target.checked?'brightness(1.45) saturate(.7)':'';};
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2000)}
+function clock(){let d=new Date();document.getElementById('clock').innerHTML=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})+'<br>'+d.toLocaleDateString()}clock();setInterval(clock,15000);
+</script>
+</body></html>
